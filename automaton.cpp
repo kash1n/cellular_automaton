@@ -24,11 +24,20 @@ bool cellular_space::init (int size_x, int size_y, const std::map<std::pair<int,
 
 void cellular_space::print ()
 {
+  auto char_by_state = [] (int state)
+  {
+    if (state == 0)
+      return '-';
+    if (state == 1)
+      return '+';
+    return (char)state;
+  };
+
   printf ("\n");
   for (int y = 0; y < m_ny; y++)
     {
       for (int x = 0; x < m_nx; x++)
-        printf (" %d", m_states[y * m_nx + x]);
+        printf (" %c", char_by_state (m_states[y * m_nx + x]));
       printf ("\n");
     }
   printf ("\n");
@@ -195,7 +204,10 @@ void cellular_automaton::run (bool step_by_step)
             }
         }
       if (m_space.get_states() == new_space.get_states())
-        return;
+        {
+          printf ("Finished!\n");
+          return;
+        }
       m_space = new_space;
 
       if (step_by_step)

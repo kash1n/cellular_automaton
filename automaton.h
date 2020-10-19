@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <utility>
 
-#define USER_NX 64
-#define USER_NY 48
+#define USER_NX 80
+#define USER_NY 50
 
 struct command_t
 {
