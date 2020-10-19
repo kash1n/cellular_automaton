@@ -29,7 +29,7 @@ void cellular_space::print ()
     if (state == 0)
       return '-';
     if (state == 1)
-      return '+';
+      return 'o';
     return (char)state;
   };
 
@@ -177,7 +177,7 @@ int cellular_automaton::get_new_state (int prev_state, const std::array<int, 8> 
   return -1;
 }
 
-void cellular_automaton::run (bool step_by_step)
+void cellular_automaton::run (bool step_by_step, int sleep)
 {
   while (true)
     {
@@ -205,16 +205,20 @@ void cellular_automaton::run (bool step_by_step)
         }
       if (m_space.get_states() == new_space.get_states())
         {
-          printf ("Finished!\n");
+          printf ("Finished.\n");
           return;
         }
       m_space = new_space;
 
       if (step_by_step)
-        getc (stdin);
+        {
+          printf ("Press \'Enter\' for next step\n");
+          getc (stdin);
+        }
       else
         {
-          std::this_thread::sleep_for(std::chrono::microseconds (500000));
+          printf ("Speed: %d ms\n", sleep / 1000);
+          std::this_thread::sleep_for(std::chrono::microseconds (sleep));
         }
     }
 }

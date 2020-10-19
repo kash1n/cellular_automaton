@@ -1,4 +1,7 @@
 ; struct1
+; o - o o - o
+; - - o o - -
+; o - o o - o
 
 5 5 1
 5 7 1

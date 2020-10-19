@@ -6,9 +6,9 @@
 
 int main (int argc, char *argv[])
 {
-  if (argc != 4 && argc != 3)
+  if (argc != 5 && argc != 3)
     {
-      fprintf (stderr, "Using: %s <command file> <input states file> <flag>\n", argv[0]);
+      fprintf (stderr, "Using: %s <command file> <input states file> [flag] [milliseconds]\n", argv[0]);
       return 1;
     }
 
@@ -43,11 +43,15 @@ int main (int argc, char *argv[])
   fclose (fp);
 
   bool run_to_halt = false;
-  if (argc == 4)
+  int millisec = 500;
+  if (argc == 5)
     {
       std::string flag = argv[3];
       if ((flag == "-r") || (flag == "--run"))
-        run_to_halt = true;
+        {
+          run_to_halt = true;
+          millisec = atoi (argv[4]);
+        }
       else
         {
           fprintf (stderr, "Unknown flag \'%s\'!\n", flag.c_str ());
@@ -55,7 +59,7 @@ int main (int argc, char *argv[])
         }
     }
 
-  CA.run (!run_to_halt);
+  CA.run (!run_to_halt, millisec * 1000);
 
   return 0;
 }

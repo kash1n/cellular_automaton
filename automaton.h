@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <utility>
 
-#define USER_NX 80
-#define USER_NY 50
+#define USER_NX 60
+#define USER_NY 40
 
 struct command_t
 {
@@ -47,7 +47,7 @@ public:
   cellular_automaton () {}
   ~cellular_automaton () {}
 
-  void run (bool step_by_step);
+  void run (bool step_by_step, int sleep = 500000);
   void print_commands ();
 
   void add_command (const command_t command);
