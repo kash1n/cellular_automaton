@@ -1,11 +1,10 @@
-CC = g++
-CFLAGS = -g -Wall -W -Wextra -std=c++11 -lm --fast-math -O3
+CXXFLAGS := -g -Wall -W -Wextra -std=c++11 --fast-math -O3 -MMD
+LDLIBS := -lm -lstdc++
 
-a.out: main.o automaton.o
-	$(CC) $(CFLAGS) $^
-main.o: main.cpp automaton.h
-	$(CC) $(CFLAGS) -c $<
-automaton.o: automaton.cpp automaton.h
-	$(CC) $(CFLAGS) -c $<
+main: main.o automaton.o
+
+DEPS := $(shell find -name "*.d")
+-include $(DEPS)
+
 clean:
-	rm -f *.out *.o
+	rm -f main *.o *.d
